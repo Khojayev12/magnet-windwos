@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/SnapKeys.csproj" />
+  <Project Path="tests/Layouts.Tests/Layouts.Tests.csproj" />
+</Solution>
