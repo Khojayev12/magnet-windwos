@@ -28,6 +28,10 @@ To change a shortcut, edit its line in [`src/Config.cs`](src/Config.cs) and rebu
 
 The tray icon's menu has three items: **Enabled**, **Run at startup** (on after the first launch), and **Exit**.
 
+## Download
+
+A ready-to-run build is in [`prod/MagnetWindows.exe`](prod/MagnetWindows.exe). Copy it anywhere and run it; nothing else is needed. On first launch it adds itself to startup, which you can turn off from the tray menu.
+
 ## Build
 
 You need the [.NET 10 SDK](https://dotnet.microsoft.com/download) on Windows 10 22H2 or Windows 11 (x64).
