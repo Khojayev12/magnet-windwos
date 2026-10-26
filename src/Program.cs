@@ -1,13 +1,13 @@
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-using static SnapKeys.Native;
+using static MagnetWindows.Native;
 
-namespace SnapKeys;
+namespace MagnetWindows;
 
 internal static unsafe class Program
 {
-    const string MutexName = @"Local\SnapKeys.SingleInstance.6f1c2b7e";
-    const string WindowClass = "SnapKeys.Host";
+    const string MutexName = @"Local\MagnetWindows.SingleInstance.6f1c2b7e";
+    const string WindowClass = "MagnetWindows.Host";
 
     static nint _hwnd;
     static bool _enabled;

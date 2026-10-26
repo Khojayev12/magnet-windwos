@@ -1,6 +1,6 @@
-using static SnapKeys.Native;
+using static MagnetWindows.Native;
 
-namespace SnapKeys;
+namespace MagnetWindows;
 
 /// <summary>The app's only visible surface: a notification-area icon with a three-item menu.</summary>
 internal static unsafe class TrayIcon

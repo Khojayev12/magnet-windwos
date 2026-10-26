@@ -1,4 +1,4 @@
-namespace SnapKeys;
+namespace MagnetWindows;
 
 public enum SnapAction
 {
@@ -81,6 +81,29 @@ public static class Layouts
         int left = Math.Clamp(scaled.Left, to.Left, to.Right - width);
         int top = Math.Clamp(scaled.Top, to.Top, to.Bottom - height);
         return new(left, top, left + width, top + height);
+    }
+
+    /// <summary>
+    /// Where a window that would not shrink to target (an app minimum size) should sit: against the work-area edge
+    /// the target touches, centered on the target otherwise, and never outside the area (so never under the taskbar).
+    /// </summary>
+    public static Rect Settle(Rect target, Rect actual, Rect area)
+    {
+        int left = SettleAxis(target.Left, target.Right, actual.Width, area.Left, area.Right);
+        int top = SettleAxis(target.Top, target.Bottom, actual.Height, area.Top, area.Bottom);
+        return new(left, top, left + actual.Width, top + actual.Height);
+    }
+
+    static int SettleAxis(int start, int end, int size, int areaStart, int areaEnd)
+    {
+        if (size <= end - start)
+            return start;
+        bool atStart = start == areaStart;
+        bool atEnd = end == areaEnd;
+        int position = atEnd && !atStart ? end - size
+            : atStart && !atEnd ? start
+            : start - (size - (end - start)) / 2;
+        return Math.Clamp(position, areaStart, Math.Max(areaStart, areaEnd - size));
     }
 
     /// <summary>Columns x0..x1 out of xParts and rows y0..y1 out of yParts.</summary>

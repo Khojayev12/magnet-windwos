@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
-using static SnapKeys.Native;
+using static MagnetWindows.Native;
 
-namespace SnapKeys;
+namespace MagnetWindows;
 
 internal readonly record struct DisplayInfo(nint Handle, Rect Bounds, Rect WorkArea);
 

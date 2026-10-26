@@ -1,4 +1,4 @@
-namespace SnapKeys.Tests;
+namespace MagnetWindows.Tests;
 
 public class LayoutsTests
 {
@@ -150,6 +150,68 @@ public class LayoutsTests
         var moved = Layouts.MoveToArea(new Rect(480, 270, 1440, 810), from, to);
 
         Assert.Equal(new Rect(1920 + 960, 540, 1920 + 2880, 1620), moved);
+    }
+
+    // Telegram on a 3440x1392 work area: it will not go below 758 px tall, so a half (696 px) cannot hold it.
+    static readonly Rect Work = new(0, 0, 3440, 1392);
+
+    [Fact]
+    public void Oversized_bottom_half_is_anchored_to_the_taskbar_edge()
+    {
+        var target = Layouts.Target(Work, SnapAction.Bottom);
+        var actual = new Rect(0, 696, 3440, 696 + 758);
+
+        Assert.Equal(new Rect(0, 1392 - 758, 3440, 1392), Layouts.Settle(target, actual, Work));
+    }
+
+    [Fact]
+    public void Oversized_top_half_stays_at_the_top()
+    {
+        var target = Layouts.Target(Work, SnapAction.TopRight);
+        var actual = new Rect(1720, 0, 3440, 758);
+
+        Assert.Equal(actual, Layouts.Settle(target, actual, Work));
+    }
+
+    [Fact]
+    public void Oversized_right_third_is_anchored_to_the_right_edge()
+    {
+        var target = Layouts.Target(Work, SnapAction.RightThird);
+        var actual = new Rect(target.Left, 0, target.Left + 1300, 1392);
+
+        Assert.Equal(new Rect(3440 - 1300, 0, 3440, 1392), Layouts.Settle(target, actual, Work));
+    }
+
+    [Fact]
+    public void Oversized_center_third_stays_centered_on_its_slot()
+    {
+        var target = Layouts.Target(Work, SnapAction.CenterThird);
+        var actual = new Rect(target.Left, 0, target.Left + 1347, 1392);
+
+        var settled = Layouts.Settle(target, actual, Work);
+
+        Assert.Equal(1347, settled.Width);
+        Assert.Equal(target.Left - 100, settled.Left);
+    }
+
+    [Fact]
+    public void Window_taller_than_the_work_area_starts_at_its_top()
+    {
+        var target = Layouts.Target(Work, SnapAction.Left);
+        var actual = new Rect(0, 0, 1720, 1500);
+
+        Assert.Equal(new Rect(0, 0, 1720, 1500), Layouts.Settle(target, actual, Work));
+    }
+
+    [Fact]
+    public void Window_that_fits_lands_on_the_target_corner()
+    {
+        var target = Layouts.Target(Work, SnapAction.BottomRight);
+        var nudged = new Rect(target.Left + 7, target.Top, target.Right + 7, target.Bottom - 7);
+
+        var settled = Layouts.Settle(target, nudged, Work);
+
+        Assert.Equal((target.Left, target.Top), (settled.Left, settled.Top));
     }
 
     [Fact]

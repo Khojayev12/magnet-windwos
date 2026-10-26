@@ -1,4 +1,4 @@
-namespace SnapKeys;
+namespace MagnetWindows;
 
 /// <summary>Remembers each window's rectangle and maximized state from before its first snap, keyed by HWND.</summary>
 internal static class RestoreStore

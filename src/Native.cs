@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace SnapKeys;
+namespace MagnetWindows;
 
 /// <summary>Hand-written Win32 declarations: only what the app calls, all blittable so they survive trimming and Native AOT.</summary>
 internal static unsafe partial class Native
@@ -36,6 +36,7 @@ internal static unsafe partial class Native
     public const int GWL_STYLE = -16;
     public const int SW_MAXIMIZE = 3;
     public const int SW_RESTORE = 9;
+    public const uint SWP_NOSIZE = 0x0001;
     public const uint SWP_NOZORDER = 0x0004;
     public const uint SWP_NOACTIVATE = 0x0010;
 

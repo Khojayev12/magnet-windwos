@@ -1,4 +1,4 @@
-namespace SnapKeys;
+namespace MagnetWindows;
 
 /// <summary>Plain-text log of errors plus start and exit, capped at 512 KB.</summary>
 internal static class Log

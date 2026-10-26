@@ -8,8 +8,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Version>1.0.0</Version>
+    <Product>Magnet Windows</Product>
+    <AssemblyTitle>Magnet Windows</AssemblyTitle>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>SnapKeys.ico</ApplicationIcon>
+    <ApplicationIcon>MagnetWindows.ico</ApplicationIcon>
     <IsAotCompatible>true</IsAotCompatible>
     <InvariantGlobalization>true</InvariantGlobalization>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>

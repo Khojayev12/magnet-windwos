@@ -1,6 +1,6 @@
-using static SnapKeys.Native;
+using static MagnetWindows.Native;
 
-namespace SnapKeys;
+namespace MagnetWindows;
 
 /// <summary>Registers the bindings with RegisterHotKey (never a keyboard hook) and maps WM_HOTKEY ids back to actions.</summary>
 internal static class HotkeyManager

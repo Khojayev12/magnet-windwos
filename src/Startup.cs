@@ -1,6 +1,6 @@
 using Microsoft.Win32;
 
-namespace SnapKeys;
+namespace MagnetWindows;
 
 /// <summary>Run-at-login through the per-user Run key, which needs no admin rights.</summary>
 internal static class Startup

@@ -1,13 +1,14 @@
-using static SnapKeys.Native;
+using static MagnetWindows.Native;
 
-namespace SnapKeys;
+namespace MagnetWindows;
 
 internal readonly record struct Binding(SnapAction Action, uint Modifiers, uint Key, string KeyName);
 
 /// <summary>Every shortcut lives here. To change one, edit its line and rebuild; there is no runtime configuration.</summary>
 internal static class Config
 {
-    public const string AppName = "SnapKeys";
+    // Shown in the tray tooltip and balloon; also names the Run value and the %LOCALAPPDATA% folder.
+    public const string AppName = "Magnet Windows";
 
     // Fn never reaches Windows (keyboards handle it in firmware), so Ctrl+Alt stands in for Magnet's Ctrl+Option.
     public const uint BaseModifiers = MOD_CONTROL | MOD_ALT;

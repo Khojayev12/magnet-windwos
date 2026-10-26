@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
-using static SnapKeys.Native;
+using static MagnetWindows.Native;
 
-namespace SnapKeys;
+namespace MagnetWindows;
 
 /// <summary>Applies an action to the foreground window: eligibility checks, border compensation, DPI, SetWindowPos.</summary>
 internal static unsafe class WindowMover
@@ -55,8 +55,24 @@ internal static unsafe class WindowMover
             _ => Layouts.Target(area, action),
         };
 
-        Place(hwnd, target, visible: true);
+        if (Place(hwnd, target, visible: true))
+            Settle(hwnd, target, destination?.WorkArea ?? area);
         RestoreStore.MarkPlaced(hwnd, GetOuterRect(hwnd));
+    }
+
+    // Windows enforces an app's minimum size, so the window can come out larger than the target. Accept that size
+    // (no retry loop) but move it, once, to the target's side and inside the work area.
+    static void Settle(nint hwnd, Rect target, Rect area)
+    {
+        Rect frame = GetVisibleFrame(hwnd);
+        Rect settled = Layouts.Settle(target, frame, area);
+        if (settled == frame)
+            return;
+        Rect outer = GetOuterRect(hwnd);
+        int x = outer.Left + settled.Left - frame.Left;
+        int y = outer.Top + settled.Top - frame.Top;
+        if (!SetWindowPos(hwnd, 0, x, y, 0, 0, MoveFlags | SWP_NOSIZE))
+            Log.Error($"SetWindowPos (settle) failed for {ClassName(hwnd)}: error {Marshal.GetLastPInvokeError()}.");
     }
 
     static void Restore(nint hwnd)
