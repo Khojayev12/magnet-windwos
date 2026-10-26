@@ -46,7 +46,6 @@ dotnet test tests/Layouts.Tests/Layouts.Tests.csproj
 
 ## Notes
 
-- The Fn key can't be part of a shortcut, because Windows never receives Fn key events.
 - On keyboard layouts that use AltGr, Windows reports AltGr as Ctrl+Alt, so a Ctrl+Alt+letter shortcut can block typing that character. If that happens, change `BaseModifiers` in `Config.cs`.
 - If an app has a minimum size larger than the slot (Telegram, for example), the window keeps that size. It's placed against the slot's screen edge and stays inside the work area.
 - Windows of apps running as administrator can't be moved by a standard-user app. Those snaps are skipped and logged.
